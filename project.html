@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartClass - Timetable & Assignment Manager</title>
+    <link rel="stylesheet" href="project.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+     <!-- Full Background Clock -->
+    <div class="full-bg-clock" id="bgClock">
+        <div class="clock-overlay">
+            <div class="clock" id="clock">
+                <div class="hand hour-hand" id="hour-hand"></div>
+                <div class="hand minute-hand" id="minute-hand"></div>
+                <div class="hand second-hand" id="second-hand"></div>
+                <div class="center-dot"></div>
+                <div class="time-digital" id="digitalTime"></div>
+            </div>
+        </div>
+    </div>
+
+     <!-- Notification -->
+    <div id="notification" class="notification">
+        <span id="notificationText"></span>
+        <button onclick="closeNotification()">&times;</button>
+    </div>
+ <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>SmartClass</span>
+            </div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How it Works</a>
+                <a href="#reviews">Reviews</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn-login" onclick="showLogin()">Login</button>
+                <button class="btn-getstarted" onclick="showGetStarted()">Get Started</button>
+            </div>
+        </div>
+    </nav>
+   <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Smart Timetable & Assignment Manager</h1>
+            <p>Never miss a class or deadline. Get SMS/Email notifications for classes & assignments automatically.</p>
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="showGetStarted()">Get Started Free</button>
+                <button class="btn-secondary" onclick="scrollToFeatures()">See Features</button>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dashboard">
+        </div>
+    </section>
+
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Powerful Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Smart Timetable</h3>
+                    <p>Edit your timetable anytime. Changes notify all users instantly</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Attendance Tracking</h3>
+                    <p>Real-time attendance with QR code scanning and parent notifications</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-tasks"></i>
+                    <h3>Assignment Manager</h3>
+                    <p>Track deadlines with smart reminders and submission status</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Timetable Section -->
+    <section id="timetable" class="timetable-section" style="display:none;">
+        <div class="container">
+            <h2>My Timetable <button class="btn-edit" onclick="toggleEditMode()">✏️ Edit</button></h2>
+            <div class="timetable-grid" id="timetableGrid">
+                <!-- Timetable will be populated by JS -->
+            </div>
+            <div class="timetable-actions">
+                <button class="btn-primary" onclick="saveTimetable()">💾 Save Changes</button>
+                <button class="btn-secondary" onclick="resetTimetable()">🔄 Reset</button>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- How it Works -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Create Your Account</h3>
+                    <p>Sign up as Student or Teacher in 30 seconds</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Add Your Schedule</h3>
+                    <p>Import or manually add your class timetable</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Stay Organized</h3>
+                    <p>Get automatic notifications and stay on top of everything</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="reviews">
+        <div class="container">
+            <h2>What Students Say</h2>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Never missed a class since using SmartClass! SMS reminders are life-saver."</p>
+                    <div class="reviewer">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&w=50&h=50&fit=crop" alt="Student">
+                        <span>Aarav Sharma</span>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Assignment deadlines are now under control. Teachers love the attendance feature!"</p>
+                    <div class="reviewer">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&w=50&h=50&fit=crop" alt="Student">
+                        <span>Priya Patel</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h4>Support Numbers</h4>
+                        <p><strong>+919192939495</strong></p>
+                        <p><strong>+91-9196959493</strong></p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h4>Email Support</h4>
+                        <p>support@smartclass.in</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLogin()">&times;</span>
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="showStudentLogin()">Student</button>
+                <button class="tab-btn" onclick="showTeacherLogin()">Teacher</button>
+            </div>
+            <form id="studentLogin" class="login-form">
+                <h3>Student Login</h3>
+                <input type="email" id="studentEmail" placeholder="Email" required>
+                <input type="password" id="studentPassword" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+            <form id="teacherLogin" class="login-form" style="display: none;">
+                <h3>Teacher Login</h3>
+                <input type="email" id="teacherEmail" placeholder="Email" required>
+                <input type="password" id="teacherPassword" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+     <!-- Demo Modal -->
+    <div id="demoModal" class="modal demo-modal">
+        <div class="modal-content demo-content">
+            <span class="close" onclick="closeDemo()">&times;</span>
+            <h2>Dashboard</h2>
+            <div class="demo-dashboard">
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h4>Today's Classes</h4>
+                        <div class="class-item">
+                            <span>Maths - 10:00 AM</span>
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="class-item">
+                            <span>Physics - 12:00 PM</span>
+                            <i class="fas fa-bell"></i>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <h4>Pending Assignments</h4>
+                        <div class="assignment-item">
+                            <span>Science Project - Due Tomorrow</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <h4>Attendance</h4>
+                        <p>95% this month</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="project.js"></script>
+</body>
+</html>
