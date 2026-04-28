@@ -1,0 +1,765 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+/* Full Background Clock */
+.full-bg-clock {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.clock-overlay {
+    position: relative;
+    width: 300px;
+    height: 300px;
+}
+
+.clock {
+    width: 250px;
+    height: 250px;
+    border: 8px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+    position: relative;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 50px rgba(255,255,255,0.3);
+}
+
+.hand {
+    position: absolute;
+    left: 50%;
+    transform-origin: bottom center;
+    border-radius: 6px;
+}
+
+.hour-hand {
+    width: 8px;
+    height: 60px;
+    background: linear-gradient(to top, #fff, #f0f0f0);
+    top: 50px;
+    margin-left: -4px;
+    box-shadow: 0 0 10px rgba(255,255,255,0.8);
+}
+
+.minute-hand {
+    width: 6px;
+    height: 90px;
+    background: linear-gradient(to top, #fff, #f0f0f0);
+    top: 25px;
+    margin-left: -3px;
+    box-shadow: 0 0 8px rgba(255,255,255,0.6);
+}
+
+.second-hand {
+    width: 3px;
+    height: 110px;
+    background: linear-gradient(to top, #ff4757, #ff6b81);
+    top: 5px;
+    margin-left: -1.5px;
+    box-shadow: 0 0 10px rgba(255,71,87,0.8);
+}
+
+.center-dot {
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 20px rgba(102,126,234,0.8);
+}
+
+.time-digital {
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.9);
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+/* Notification */
+.notification {
+    position: fixed;
+    top: 100px;
+    right: -400px;
+    background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(255,107,107,0.4);
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: right 0.4s ease;
+    max-width: 350px;
+}
+
+.notification.show {
+    right: 20px;
+}
+
+.notification button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(20px);
+    z-index: 999;
+    padding: 1rem 0;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #667eea;
+}
+
+.logo i {
+    margin-right: 0.5rem;
+    font-size: 2rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #667eea;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-login, .btn-getstarted {
+    padding: 0.7rem 1.5rem;
+    border: none;
+    border-radius: 50px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-login {
+    background: transparent;
+    color: #667eea;
+    border: 2px solid #667eea;
+}
+
+.btn-login:hover {
+    background: #667eea;
+    color: white;
+}
+
+.btn-getstarted {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-getstarted:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 120px 2rem 2rem;
+    gap: 4rem;
+    position: relative;
+    z-index: 10;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.hero-content p {
+    font-size: 1.3rem;
+    color: rgba(255,255,255,0.95);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+    color: white;
+    box-shadow: 0 4px 15px rgba(255,107,107,0.4);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255,107,107,0.6);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255,255,255,0.6);
+}
+
+.btn-secondary:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+/* Features & Other sections - same as before */
+.features, .timetable-section, .contact ,.reviews ,.how-it-works{
+    padding: 100px 0;
+    position: relative;
+    z-index: 10;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.features {
+    background: white;
+}
+
+.features h2, .timetable-section h2, .contact h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 4rem;
+    color: #333;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+.feature-logout:hover {
+    transform: translateY(-2px);
+}
+.feature-card {
+    background: white;
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.feature-card i {
+    font-size: 3.5rem;
+    color: #667eea;
+    margin-bottom: 1.5rem;
+}
+/* Timetable Section */
+.timetable-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.timetable-cell {
+    min-height: 80px;
+    background: #f8f9ff;
+    border: 2px solid #e1e8ff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    color: #555;
+    transition: all 0.3s;
+    cursor: pointer;
+    position: relative;
+}
+
+.timetable-cell:hover {
+    background: #e8f0fe;
+    transform: scale(1.02);
+}
+
+.timetable-cell.editing {
+    border-color: #4ecdc4;
+    background: #e6fffa;
+}
+
+.timetable-cell input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: transparent;
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 1rem;
+    border-radius: 12px;
+}
+
+.timetable-days {
+    font-weight: 700;
+    color: #667eea;
+    background: linear-gradient(45deg, #667eea, #764ba2) !important;
+    color: white !important;
+}
+
+.timetable-times {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-weight: 600;
+    color: #667eea;
+    background: linear-gradient(45deg, #667eea, #764ba2) !important;
+    color: white !important;
+}
+
+.timetable-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+/* Contact */
+.contact {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.contact-item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.contact-item i {
+    font-size: 3rem;
+    color: #667eea;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 20px;
+}
+/* Modal styles - same as before */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: white;
+    margin: 5% auto;
+    padding: 0;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: slideIn 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .clock {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .timetable-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* How it Works */
+.how-it-works {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.how-it-works h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 4rem;
+    color: #333;
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.step {
+    text-align: center;
+    padding: 2rem;
+}
+
+.step-number {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 auto 1.5rem;
+}
+
+.step h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+/* Reviews */
+.reviews {
+    padding: 100px 0;
+    background: white;
+}
+
+.reviews h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 4rem;
+    color: #333;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+}
+
+.review-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 2.5rem;
+    border-radius: 20px;
+    color: white;
+}
+
+.stars {
+    display: flex;
+    gap: 0.2rem;
+    margin-bottom: 1rem;
+}
+
+.stars i {
+    color: #ffd700;
+}
+
+.review-card p {
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.reviewer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.reviewer img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 3px solid rgba(255,255,255,0.5);
+}
+
+.reviewer span {
+    font-weight: 600;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: white;
+    margin: 5% auto;
+    padding: 0;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #999;
+}
+
+.close:hover {
+    color: #333;
+}
+
+.tab-buttons {
+    display: flex;
+    border-bottom: 2px solid #eee;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 1rem;
+    border: none;
+    background: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.tab-btn.active {
+    color: #667eea;
+    border-bottom: 3px solid #667eea;
+    font-weight: 600;
+}
+
+.login-form {
+    padding: 2rem;
+}
+
+.login-form h3 {
+    margin-bottom: 1.5rem;
+    color: #333;
+    text-align: center;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+.login-form input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.login-form button {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Demo Modal */
+.demo-modal .modal-content {
+    max-width: 900px;
+    max-height: 90vh;
+}
+
+.demo-content {
+    padding: 2rem;
+}
+
+.demo-content h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.demo-dashboard {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.dashboard-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 1.5rem;
+    border-radius: 15px;
+    color: white;
+}
+
+.dashboard-card h4 {
+    margin-bottom: 1rem;
+}
+
+.class-item, .assignment-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 100px;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-buttons {
+        justify-content: center;
+    }
+    
+    .clock-container {
+        top: 10px;
+        right: 10px;
+    }
+    
+    .clock {
+        width: 80px;
+        height: 80px;
+    }
+}
