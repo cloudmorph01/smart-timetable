@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SmartClass - Timetable & Assignment Manager</title>
-    <link rel="stylesheet" href="project.css">
+    <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -68,17 +68,17 @@
         <div class="container">
             <h2>Powerful Features</h2>
             <div class="features-grid">
-                <div class="feature-card">
+                <div class="feature-card" onclick="openTimetable()">
                     <i class="fas fa-calendar-alt"></i>
                     <h3>Smart Timetable</h3>
                     <p>Edit your timetable anytime. Changes notify all users instantly</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" onclick="openAttendance()">
                     <i class="fas fa-users"></i>
                     <h3>Attendance Tracking</h3>
                     <p>Real-time attendance with QR code scanning and parent notifications</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" onclick="openAssignments()">
                     <i class="fas fa-tasks"></i>
                     <h3>Assignment Manager</h3>
                     <p>Track deadlines with smart reminders and submission status</p>
@@ -86,7 +86,68 @@
             </div>
         </div>
     </section>
-    
+
+    <!-- Timetable Modal -->
+    <div id="timetableModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-calendar-alt"></i> Smart Timetable</h2>
+                <span class="close" onclick="closeModal('timetableModal')">&times;</span>
+            </div>
+            <div class="timetable">
+                <div class="days-tabs" id="daysTabs"></div>
+                <table class="timetable-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Subject</th>
+                            <th>Teacher</th>
+                            <th>Room</th>
+                        </tr>
+                    </thead>
+                    <tbody id="timetableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Attendance Modal -->
+    <div id="attendanceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-users"></i> Attendance Tracking</h2>
+                <span class="close" onclick="closeModal('attendanceModal')">&times;</span>
+            </div>
+            <div class="attendance-section">
+                <h3>Today's Attendance - <span id="attendanceDate"></span></h3>
+                <div class="qr-scanner" onclick="scanQR()">
+                    <i class="fas fa-qrcode"></i>
+                    <div>Tap to Scan QR</div>
+                </div>
+                <div class="attendance-list" id="attendanceList"></div>
+                <button class="filter-btn mark-all-btn" onclick="markAllPresent()">Mark All Present</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Assignments Modal -->
+    <div id="assignmentsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-tasks"></i> Assignment Manager</h2>
+                <span class="close" onclick="closeModal('assignmentsModal')">&times;</span>
+            </div>
+            <div class="assignment-section">
+                <div class="assignment-filter">
+                    <button class="filter-btn active" onclick="filterAssignments('all')">All</button>
+                    <button class="filter-btn" onclick="filterAssignments('today')">Today</button>
+                    <button class="filter-btn" onclick="filterAssignments('open')">Open</button>
+                    <button class="filter-btn" onclick="filterAssignments('closed')">Closed</button>
+                </div>
+                <div id="assignmentList"></div>
+            </div>
+        </div>
+    </div>
     <!-- Timetable Section -->
     <section id="timetable" class="timetable-section" style="display:none;">
         <div class="container">
@@ -224,25 +285,25 @@
                             <i class="fas fa-bell"></i>
                         </div>
                         <div class="class-item">
-                            <span>Physics - 12:00 PM</span>
+                            <span>DBMS - 12:00 PM</span>
                             <i class="fas fa-bell"></i>
                         </div>
                     </div>
                     <div class="dashboard-card">
                         <h4>Pending Assignments</h4>
                         <div class="assignment-item">
-                            <span>Science Project - Due Tomorrow</span>
+                            <span>Computer Science Project - Due Tomorrow</span>
                         </div>
                     </div>
                     <div class="dashboard-card">
                         <h4>Attendance</h4>
-                        <p>95% this month</p>
+                        <p>85% this month</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="project.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
