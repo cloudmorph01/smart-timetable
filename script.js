@@ -8,9 +8,9 @@ const users = {
 // Timetable Data
 let timetable = [
     ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-    ['9-10', 'Maths', 'Physics', 'Chemistry', 'Maths', 'English'],
-    ['10-11', 'English', 'Maths', 'Physics', 'Chemistry', 'Sports'],
-    ['11-12', 'Physics', 'Chemistry', 'English', 'Physics', 'Project'],
+    ['9-10', 'Maths', 'DBMS', 'Chemistry', 'Maths', 'English'],
+    ['10-11', 'English', 'Maths', 'DBMS', 'Chemistry', 'Sports'],
+    ['11-12', 'DBMS', 'Chemistry', 'English', 'DBMS', 'Project'],
     ['1-2', 'Chemistry', 'English', 'Maths', 'English', 'Seminar'],
     ['2-3', 'Sports', 'Project', 'Sports', 'Project', 'Maths']
 ];
@@ -104,6 +104,202 @@ function logout() {
 // Smooth Scrolling
 function scrollToFeatures() {
     document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
+}
+// Sample Data
+const timetableData = {
+    monday: [
+        { time: '9:00-10:00', subject: 'Maths', teacher: 'Mr. Sharma', room: '101' },
+        { time: '10:00-11:00', subject: 'Science', teacher: 'Mrs. Gupta', room: '102' },
+        { time: '11:00-12:00', subject: 'English', teacher: 'Mr. Singh', room: '103' }
+    ],
+    tuesday: [
+        { time: '9:00-10:00', subject: 'Hindi', teacher: 'Mrs. Patel', room: '104' },
+        { time: '10:00-11:00', subject: 'Social Science', teacher: 'Mr. Kumar', room: '105' },
+        { time: '11:00-12:00', subject: 'Computer', teacher: 'Ms. Rani', room: '106' }
+    ],
+    wednesday: [
+        { time: '9:00-10:00', subject: 'Maths', teacher: 'Mr. Sharma', room: '101' },
+        { time: '10:00-11:00', subject: 'Science', teacher: 'Mrs. Gupta', room: '102' },
+        { time: '11:00-12:00', subject: 'Hindi', teacher: 'Mrs. Patel', room: '104' }
+    ],
+    thursday: [
+        { time: '9:00-10:00', subject: 'English', teacher: 'Mr. Singh', room: '103' },
+        { time: '10:00-11:00', subject: 'Computer', teacher: 'Ms. Rani', room: '106' },
+        { time: '11:00-12:00', subject: 'Social Science', teacher: 'Mr. Kumar', room: '105' }
+    ],
+    friday: [
+        { time: '9:00-10:00', subject: 'Maths', teacher: 'Mr. Sharma', room: '101' },
+        { time: '10:00-11:00', subject: 'Science', teacher: 'Mrs. Gupta', room: '102' },
+        { time: '11:00-12:00', subject: 'Sports', teacher: 'Mr. Verma', room: 'Ground' }
+    ],
+    saturday: [
+        { time: '9:00-10:00', subject: 'Project Work', teacher: 'All Teachers', room: 'Lab' },
+        { time: '10:00-11:00', subject: 'Revision', teacher: 'Subject Teachers', room: 'Classroom' }
+    ]
+};
+
+const students = [
+    { id: 1, name: 'Rahul Sharma', roll: '001', status: 'absent' },
+    { id: 2, name: 'Priya Gupta', roll: '002', status: 'present' },
+    { id: 3, name: 'Amit Kumar', roll: '003', status: 'absent' },
+    { id: 4, name: 'Sneha Patel', roll: '004', status: 'present' },
+    { id: 5, name: 'Rohan Singh', roll: '005', status: 'absent' }
+];
+
+const assignments = [
+    { id: 1, title: 'Maths Worksheet', subject: 'Maths', date: '2024-01-15', dueDate: '2024-01-17', status: 'open' },
+    { id: 2, title: 'Science Project', subject: 'Science', date: '2024-01-16', dueDate: '2024-01-18', status: 'open' },
+    { id: 3, title: 'English Essay', subject: 'English', date: '2024-01-14', dueDate: '2024-01-16', status: 'closed' },
+    { id: 4, title: 'Hindi Poem', subject: 'Hindi', date: '2024-01-13', dueDate: '2024-01-15', status: 'closed' }
+];
+
+// Modal Functions
+function openTimetable() {
+    document.getElementById('timetableModal').style.display = 'block';
+    loadTimetable();
+}
+
+function openAttendance() {
+    document.getElementById('attendanceModal').style.display = 'block';
+    document.getElementById('attendanceDate').textContent = new Date().toLocaleDateString('en-IN');
+    loadAttendance();
+}
+
+function openAssignments() {
+    document.getElementById('assignmentsModal').style.display = 'block';
+    loadAssignments();
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+}
+
+// Timetable Functions
+function loadTimetable() {
+    const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    const daysTabs = document.getElementById('daysTabs');
+    
+    daysTabs.innerHTML = '';
+    days.forEach((day, index) => {
+        const tab = document.createElement('button');
+        tab.className = 'day-tab';
+        tab.textContent = day.charAt(0).toUpperCase() + day.slice(1);
+        tab.onclick = () => showDayTimetable(day);
+        if (index === 0) tab.classList.add('active');
+        daysTabs.appendChild(tab);
+    });
+    
+    showDayTimetable('monday');
+}
+
+function showDayTimetable(day) {
+    const data = timetableData[day] || [];
+    const timetableBody = document.getElementById('timetableBody');
+    const tabs = document.querySelectorAll('.day-tab');
+    
+    tabs.forEach(tab => tab.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    timetableBody.innerHTML = '';
+    data.forEach(period => {
+        const row = `
+            <tr>
+                <td>${period.time}</td>
+                <td><strong>${period.subject}</strong></td>
+                <td>${period.teacher}</td>
+                <td>${period.room}</td>
+            </tr>
+        `;
+        timetableBody.innerHTML += row;
+    });
+}
+
+// Attendance Functions
+function loadAttendance() {
+    const attendanceList = document.getElementById('attendanceList');
+    attendanceList.innerHTML = '';
+    
+    students.forEach(student => {
+        const studentDiv = document.createElement('div');
+        studentDiv.className = `student-item ${student.status}`;
+        studentDiv.innerHTML = `
+            <div>
+                <strong>${student.name}</strong> (${student.roll})
+            </div>
+            <div>
+                <button onclick="toggleAttendance(${student.id})" style="padding: 5px 15px; margin: 0 5px; border: none; border-radius: 20px; cursor: pointer; background: ${student.status === 'present' ? '#28a745' : '#3498db'}; color: white;">
+                    ${student.status === 'present' ? 'Present ✓' : 'Mark Present'}
+                </button>
+            </div>
+        `;
+        attendanceList.appendChild(studentDiv);
+    });
+}
+
+function toggleAttendance(studentId) {
+    const student = students.find(s => s.id === studentId);
+    student.status = student.status === 'present' ? 'absent' : 'present';
+    loadAttendance();
+}
+
+function scanQR() {
+    alert('🔥 QR Scanner Activated!\n\n✅ All students marked present!');
+    students.forEach(student => student.status = 'present');
+    loadAttendance();
+}
+
+function markAllPresent() {
+    students.forEach(student => student.status = 'present');
+    loadAttendance();
+}
+
+// Assignment Functions
+function loadAssignments(filter = 'all') {
+    const assignmentList = document.getElementById('assignmentList');
+    const today = new Date().toISOString().split('T')[0];
+    
+    let filteredAssignments = assignments;
+    
+    if (filter === 'today') {
+        filteredAssignments = assignments.filter(a => a.date === today);
+    } else if (filter === 'open') {
+        filteredAssignments = assignments.filter(a => a.status === 'open');
+    } else if (filter === 'closed') {
+        filteredAssignments = assignments.filter(a => a.status === 'closed');
+    }
+    
+    assignmentList.innerHTML = '';
+    filteredAssignments.forEach(assignment => {
+        const isClosed = new Date(assignment.dueDate) < new Date();
+        const assignmentDiv = document.createElement('div');
+        assignmentDiv.className = `assignment-card ${isClosed ? 'closed' : ''}`;
+        assignmentDiv.innerHTML = `
+            <div class="assignment-date">
+                📅 Given: ${new Date(assignment.date).toLocaleDateString('en-IN')} | 
+                ⏰ Due: ${new Date(assignment.dueDate).toLocaleDateString('en-IN')} | 
+                ${isClosed ? '❌ Closed' : '✅ Open'}
+            </div>
+            <h4>${assignment.title}</h4>
+            <p><strong>Subject:</strong> ${assignment.subject}</p>
+        `;
+        assignmentList.appendChild(assignmentDiv);
+    });
+}
+
+function filterAssignments(type) {
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    loadAssignments(type);
+}
+
+// Close modal on outside click
+window.onclick = function(event) {
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(modal => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
 }
 // Timetable Functions
 function loadTimetable() {
