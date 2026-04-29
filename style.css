@@ -381,6 +381,172 @@ body {
     font-size: 1rem;
     margin-bottom: 20px;
 }
+@media (max-width: 768px) {
+    .features {
+        padding: 40px 0 !important;
+    }
+    
+    .container {
+        padding: 0 15px !important;
+    }
+    
+    .features h2 {
+        font-size: 1.8rem !important;
+        margin-bottom: 40px !important;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+    
+    .feature-card {
+        padding: 30px 20px !important;
+        margin-bottom: 20px !important;
+    }
+    
+    .feature-card i {
+        font-size: 3rem !important;
+    }
+    
+    .feature-card h3 {
+        font-size: 1.3rem !important;
+    }
+}
+
+/* SMALL MOBILE (under 480px) */
+@media (max-width: 480px) {
+    body {
+        padding: 10px !important;
+    }
+    
+    .features {
+        padding: 30px 10px !important;
+    }
+    
+    .features h2 {
+        font-size: 1.5rem !important;
+    }
+    
+    .feature-card {
+        padding: 25px 15px !important;
+    }
+    
+    .feature-card i {
+        font-size: 2.5rem !important;
+    }
+    
+    /* Modal Mobile Fix */
+    .modal-content {
+        margin: 10px !important;
+        width: calc(100% - 20px) !important;
+        max-height: 95vh !important;
+    }
+    
+    .modal-header {
+        padding: 20px !important;
+    }
+    
+    .modal-header h2 {
+        font-size: 1.3rem !important;
+    }
+    
+    /* Timetable Mobile */
+    .days-tabs {
+        gap: 8px !important;
+    }
+    
+    .day-tab {
+        flex: 0 0 100px !important;
+        padding: 12px 8px !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .timetable-table {
+        font-size: 0.85rem !important;
+    }
+    
+    .timetable-table th,
+    .timetable-table td {
+        padding: 10px 5px !important;
+    }
+    
+    /* Attendance Mobile */
+    .qr-scanner {
+        width: 250px !important;
+        height: 250px !important;
+    }
+    
+    .attendance-list {
+        max-height: 250px !important;
+    }
+    
+    .student-item {
+        flex-direction: column !important;
+        gap: 10px !important;
+        text-align: center !important;
+    }
+    
+    /* Assignments Mobile */
+    .assignment-filter {
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+    }
+    
+    .filter-btn {
+        padding: 8px 15px !important;
+        font-size: 0.85rem !important;
+        margin-bottom: 10px !important;
+    }
+    
+    .assignment-card {
+        padding: 15px !important;
+    }
+}
+
+/* VERY SMALL SCREEN (under 360px) */
+@media (max-width: 360px) {
+    .feature-card {
+        padding: 20px 15px !important;
+    }
+    
+    .qr-scanner {
+        width: 220px !important;
+        height: 220px !important;
+    }
+    
+    .day-tab {
+        flex: 0 0 90px !important;
+        padding: 10px 5px !important;
+        font-size: 0.8rem !important;
+    }
+}
+
+/* Landscape Mobile Fix */
+@media (max-height: 500px) and (orientation: landscape) {
+    .modal-content {
+        margin: 2% auto !important;
+        height: 95vh !important;
+    }
+    
+    .timetable,
+    .attendance-section,
+    .assignment-section {
+        padding: 15px !important;
+    }
+}
+
+/* TOUCH DEVICE OPTIMIZATION */
+@media (hover: none) and (pointer: coarse) {
+    .feature-card {
+        margin-bottom: 15px !important;
+    }
+    
+    .day-tab,
+    .filter-btn {
+        min-height: 45px !important;
+    }
+}
 
 /* Modal Styles */
 .modal {
